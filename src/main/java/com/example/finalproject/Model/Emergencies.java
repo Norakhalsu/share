@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 public class Emergencies {
 
-    //  طلبات الحالات الطارئه المقدمة
+    //  طلبات الحالات الطارئه
 
 
     @Id

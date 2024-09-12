@@ -34,19 +34,24 @@ public class MedicalHistory {
     private List<String> healthHabits; // العادات الصحية
 
 
-    // ----------------------- Relations
+    // ----------------------- Relations-----------
 
     @OneToOne
     @MapsId
     @JsonIgnore
-    private Patient patient; //  one patient = one MedicalHistory
+    private Patient patient; // one patient = one MedicalHistory
 
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Appointment> appointments; // لستتة المواعيد
+    private List<Appointment> appointments; // قائمة المواعيد
 
     @ManyToMany
     private Set<Emergencies> emergencies; // عدة سجلات صحية تحتوي على عدة طلبات طارئة
 
+    @ManyToMany
+    private Set<BillingRecord> BillingRecords; //
+
+    @ManyToMany
+    private Set<Requests> requests;
 
 }

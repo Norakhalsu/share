@@ -19,12 +19,12 @@ public class Doctor {
     private Integer id;
 
     @NotEmpty(message = "Doctor Major must be not empty")
-    private String major;
+    private String major; // تخصص الطبيب
 
     @NotEmpty(message = "Degree is required")
-    private String degree;
+    private String degree; // الدرجة العلمية
 
-    // ------------------------------------- Relations
+    // ----------------------- Relations --------
 
     @ManyToOne
     @JsonIgnore

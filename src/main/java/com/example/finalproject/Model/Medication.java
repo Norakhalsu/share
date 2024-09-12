@@ -40,4 +40,7 @@ public class Medication {
 
     private boolean license=true;
 
+
+    private String medicationDoses; // جرعات الدواء
+
 }

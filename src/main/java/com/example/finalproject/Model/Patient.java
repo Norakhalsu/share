@@ -24,6 +24,10 @@ public class Patient {
     @NotEmpty(message = "Health Status is Required")
     private String HealthStatus; // الحالة الصحية
 
+    private boolean sensitive=false; // الحساسية
+
+    @Pattern(regexp = "^(normal|healthy eating)$", message = "patient Current Diet must be either normal or healthy eating")
+    private String patientCurrentDiet="normal"; // نوع الروتين الغذائي للمريض
 
     // ----------------------------------------- Relations ----------------
     @ManyToOne

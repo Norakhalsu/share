@@ -24,22 +24,22 @@ public class Appointment {
        // المواعيد
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer appointmentId;
+    private Integer appointmentId; //  رقم الموعد
 
     @NotNull(message = "appointment Date is Required")
-    private Date appointmentDate;
+    private Date appointmentDate; // سبب الموعد
 
     @NotEmpty(message = "appointment Reason is Require")
-    private String appointmentReason;
+    private String appointmentReason; // سبب الموعد
 
     @NotNull(message = "Appointment Completed : true or false ")
-    private boolean isCompleted;
+    private boolean isCompleted; // اكتمال الموعد او لا
 
     @Pattern(regexp = "Scheduled|Cancelled|Completed" , message = "Status must be: Scheduled , Cancelled or Completed ")
-    private String Status;
+    private String Status; // حالة الموعد
 
     @NotEmpty(message = "Appointment Type is Required ")
-    private String appointmentType;
+    private String appointmentType; // نوع الموعد
 
 
     // ----------------- Relations----------
