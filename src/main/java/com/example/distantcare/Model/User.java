@@ -77,7 +77,6 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String city;
 
-
     // ------------------ Relations -----------
 
     @OneToOne(cascade = CascadeType.ALL , mappedBy = "user")

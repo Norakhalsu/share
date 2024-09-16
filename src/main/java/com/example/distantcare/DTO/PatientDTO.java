@@ -58,7 +58,7 @@ public class PatientDTO {
     @NotEmpty(message = "City is Required")
     private String city;
 
-
+    private int ratingToDoctor;
     // ---------------------
     @NotEmpty(message = "Health Status is Required")
    // @Size(min = 3 , max = 20 , message = "Health Care Status is Required ")

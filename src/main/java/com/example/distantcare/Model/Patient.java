@@ -31,6 +31,7 @@ public class Patient {
 
     @Column(nullable = false)
     private String patientCurrentDiet; // نوع الروتين الغذائي للمريض
+    private int ratingToDoctor;
 
     // ----------------------------------------- Relations ----------------
     @OneToOne
@@ -49,6 +50,10 @@ public class Patient {
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Appointment> appointments;
+
+
+    @OneToOne(cascade = CascadeType.ALL , mappedBy = "patient")
+    private Requests requests;
 
 
 }

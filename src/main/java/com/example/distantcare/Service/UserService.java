@@ -31,17 +31,12 @@ public class UserService {
     }
 
 
-
-
-
     public void Register(User user) {
         user.setRole("USER");
         String hash = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hash);
         userRepository.save(user);
     }
-
-
 
     //update
     public void updateUser(Integer id,User user) {
@@ -63,8 +58,6 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
-
-
-
+   // ---------------- end point ----------------------
 
 }

@@ -48,5 +48,11 @@ public class PatientController {
 
   // ----------------- End Point -------------------
 
+    @GetMapping("all-patients-city/{city}")
+    public ResponseEntity getAllPatientsByCity(@PathVariable String city){
+        return ResponseEntity.status(200).body(patientService.getPatientsInCity(city));
+    }
+
+
 
   }

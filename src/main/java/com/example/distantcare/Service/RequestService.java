@@ -7,6 +7,7 @@ import com.example.distantcare.Repository.HospitalRepository;
 import com.example.distantcare.Repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.aop.AopInvocationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class RequestService {
 
         hospital.getPatients().stream()
                 .filter(p -> p.getPatientId().equals(patientId))
-                .findFirst().orElseThrow(() -> new ApiException("Patient Not Found"));
+                .findFirst()
+                .orElseThrow(() -> new ApiException("Patient Not Found"));
 
         request.setHospital(hospital);
 
@@ -36,7 +38,9 @@ public class RequestService {
             emergency.setHoursCase(request.getEmergency().getHoursCase());
             emergency.setMedicationName(request.getEmergency().getMedicationName());
             emergency.setDoses(request.getEmergency().getDoses());
-            request.setEmergencyRequest(true);
+            request.setEmergencyRequest(true); // true
+            request.setUrgentRequest(false);
+
             if (request.getHotLine() != null) {
                 request.getHotLine().getRequestSet().add(request);
             }
@@ -53,7 +57,8 @@ public class RequestService {
             urgent.setMedicationName(request.getUrgent().getMedicationName());
             urgent.setDoses(request.getUrgent().getDoses());
             urgent.setRequest(request);
-            request.setUrgentRequest(true);
+            request.setUrgentRequest(true);// true
+            request.setEmergencyRequest(false);
         }
 
       else if (urgent.getUnKnownOnset().equalsIgnoreCase("core" )|| urgent.getUnKnownOnset().equalsIgnoreCase("pinmra")) {
@@ -66,6 +71,8 @@ public class RequestService {
         }
             requestRepository.save(request);
     }
+
+
 
 //    public void newRequest(Integer hospitalId, Integer patientId, Requests request) {
 //        Hospital hospital = hospitalRepository.findHospitalByHospitalId(hospitalId);
@@ -161,6 +168,78 @@ public class RequestService {
         }
         requestRepository.delete(request);
     }
+
+
+    // --------------------------- end point ------------------------
+
+    public void statusAcceptRequest(int requestId) {
+        Requests request = requestRepository.findRequestByRequestId(requestId);
+
+        if (request == null) {
+            throw new ApiException("Request Not Found");
+        }
+
+        String currentStatus = request.getStatus();
+        switch (currentStatus.toLowerCase()) {
+            case "accept":
+                throw new ApiException("Request already accepted");
+            case "canceled":
+                throw new ApiException("Request was canceled");
+            case "completed":
+                throw new ApiException("Request was completed");
+            case "pending":
+                request.setStatus("Accepted"); // يمكن تعديل هذا حسب هيكل الطلب الخاص بك
+                requestRepository.save(request);
+                break;
+            default:
+                throw new ApiException("Invalid request status");
+        }
+    }
+
+
+
+    public int calculateTotalHoursRequired(int requestId) {
+        Requests request = requestRepository.findRequestByRequestId(requestId);
+
+        if (request == null) {
+            throw new ApiException("Request Not Found");
+        }
+
+        int totalHoursRequired = request.getHoursRequired();
+        if (totalHoursRequired == 0) {
+            throw new ApiException("Request: Hours equal zero");
+        } else if (totalHoursRequired >= 2 && totalHoursRequired <= 6) {
+            return totalHoursRequired;
+        } else {
+            throw new ApiException("Hours Required Not within Range");
+        }
+    }
+
+
+
+
+    public String requestPriority(int requestId) {
+        Requests request = requestRepository.findRequestByRequestId(requestId);
+
+        if (request == null) {
+            throw new ApiException("Request Not Found");
+        }
+        int hoursRequired = request.getHoursRequired();
+        if (hoursRequired < 7) {
+            return "هام جدًا";
+        } else if (hoursRequired > 8 && hoursRequired < 20) {
+            return "عاجل";
+        } else {
+            return "عادي";
+        }
+
+
+
+
+    }
+
+
+
 
 
 }

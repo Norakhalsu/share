@@ -27,7 +27,7 @@ public class Doctor {
     private String major; // تخصص الطبيب
     @Column(nullable = false)
     private String degree; // الدرجة العلمية
-
+    private int ratingToPatient;
 
     // ------------------- Relations ---------
     @OneToOne

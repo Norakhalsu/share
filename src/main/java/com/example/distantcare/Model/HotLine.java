@@ -24,9 +24,9 @@ public class HotLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hotlineId;
     @NotEmpty(message = "Title is required")
-   private String title;
+    private String title;
     @NotEmpty(message = "description is re  required")
-   private String description;
+    private String description;
     @NotEmpty(message = "location is re  required")
     private String location;
     @NotEmpty(message = "hotLineName is re  required")

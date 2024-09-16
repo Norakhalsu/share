@@ -1,5 +1,6 @@
 package com.example.distantcare.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -28,7 +29,7 @@ public class Requests {
 
     private boolean facility;
     private String tools;
-    private String accept;
+    private String status="pending";
     private boolean emergencyRequest;
     private boolean urgentRequest;
     private int hoursRequired;
@@ -45,4 +46,8 @@ public class Requests {
 
     @ManyToOne
     private Hospital hospital; // الطلبات تنرفع من المستشفيات وتوصل للهوت لاين
+
+    @OneToOne
+    @JsonIgnore
+    private Patient patient;
 }

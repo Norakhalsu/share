@@ -39,5 +39,24 @@ public class RequestController {
         requestService.deleteRequest(hospitalId, requestId);
         return ResponseEntity.status(200).body("Request has been deleted");
     }
+
+    // ------------------------------ end point ------------------
+
+    @PutMapping("/set-accept/{requestId}")
+    public ResponseEntity setAccept(@PathVariable Integer requestId) {
+        requestService.statusAcceptRequest(requestId);
+        return ResponseEntity.status(200).body("Request has been accepted");
+    }
+
+    @GetMapping("/requests/{requestId}/hoursRequired")
+    public ResponseEntity calculateHoursRequired(@PathVariable Integer requestId) {
+        return ResponseEntity.status(200).body(requestService.calculateTotalHoursRequired(requestId));
+    }
+
+    @GetMapping("/priority/{requestId}")
+    public ResponseEntity calculatePriority(@PathVariable Integer requestId) {
+        return ResponseEntity.status(200).body(requestService.requestPriority(requestId));
+    }
+
 }
 

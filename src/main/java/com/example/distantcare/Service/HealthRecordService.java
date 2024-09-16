@@ -106,6 +106,60 @@ public void patientHealthHabitsUpdate(Integer patientId,  List<String> newHealth
     healthRecordRepository.save(healthRecord);
 }
 
+
+
+    public void addNewPastIllness(Long healthRecordId, String illness) {
+        HealthRecord healthRecord = healthRecordRepository.findById(healthRecordId).orElseThrow(() -> new RuntimeException("HealthRecord not found"));
+        healthRecord.addNewPastIllness(illness);
+        healthRecordRepository.save(healthRecord);
+    }
+
+
+    public void addNewPastMedication(Integer healthRecordId, List<String> medication) {
+        HealthRecord healthRecord = healthRecordRepository.findHealthRecordByHealthRecordId(healthRecordId);
+        if (healthRecord == null) {
+            throw new ApiException("HealthRecord not found");
+        }
+        healthRecord.setPastMedications(medication);
+        healthRecordRepository.save(healthRecord);
+    }
+
+
+
+    public void addNewPastSurgery(Integer healthRecordId, List<String> surgery) {
+        HealthRecord healthRecord = healthRecordRepository.findHealthRecordByHealthRecordId(healthRecordId);
+        if (healthRecord == null) {
+            throw new ApiException("HealthRecord not found");
+        }
+        healthRecord.setPastSurgeries(surgery);
+        healthRecordRepository.save(healthRecord);
+    }
+
+
+    public void addNewHealthHabit(Integer healthRecordId, List<String> habit) {
+        HealthRecord healthRecord = healthRecordRepository.findHealthRecordByHealthRecordId(healthRecordId);
+        if (healthRecord == null) {
+            throw new ApiException("HealthRecord not found");
+        }
+        healthRecord.setHealthHabits(habit);
+        healthRecordRepository.save(healthRecord);
+    }
+
+    public void searchAndUpdatePastIllness(Integer healthRecordId, List<String> illnesses) {
+        HealthRecord healthRecord = healthRecordRepository.findHealthRecordByHealthRecordId(healthRecordId);
+        if (healthRecord == null) {
+            throw new ApiException("HealthRecord not found");
+        }
+
+        List<String> currentIllnesses = healthRecord.getPastIllnesses();
+
+        if (currentIllnesses.equals(illnesses)) {
+            return;
+        }
+        healthRecord.setPastIllnesses(illnesses);
+        healthRecordRepository.save(healthRecord);
+    }
+
 }
 
     

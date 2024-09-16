@@ -57,7 +57,7 @@ public class DoctorDTO {
     private String role;
     @NotEmpty(message = "city is Required")
     private String city;
-
+    private int ratingToPatient;
     // ----------
     @NotEmpty(message = "hospital Name Major must be not empty")
     private String hospitalName;

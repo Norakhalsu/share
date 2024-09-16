@@ -40,4 +40,6 @@ public class HotLineService {
         hotLineRepository.delete(hotLine);
     }
 
+    // ---------------------------- end point --------------
+
 }
